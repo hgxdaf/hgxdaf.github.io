@@ -1,0 +1,126 @@
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<script src="../p5/p5.js"></script>
+<meta name="theme-color" content="#000000"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="margin:0px;">
+<script>
+// init
+var balls;
+var prevTime;
+
+var ballCount = 5;
+
+function setup() {
+	createCanvas(window.innerWidth, window.innerWidth / 16 * 9);
+	frameRate(30);
+	
+	// setup
+	balls = [];
+	prevTime = 0;
+	
+	for (let i = 0; i < ballCount; i++) {
+		let m =  i * 0.05 + 0.1;
+		balls.push(new Ball(Vector(i/ballCount + 1/(ballCount*2), 0.21), m));
+		balls[i].shouldCalc = false;
+		
+		balls[i].pos.y = 0.26 - balls[i].r/2;
+	}
+}
+
+function draw() {
+	// draw
+	let deltaTime = millis() - prevTime;
+	prevTime = millis();
+	background(255);
+	stroke(0, 134, 179);
+	strokeWeight(1);
+	line(0, height*0.26, width, height*0.26);
+
+	noStroke();
+	// button sign
+	let str = "Press to drop balls";
+	textSize(32/830*width);
+	fill(200);
+	text(str, width/2 - textWidth(str)/2, height*0.5);
+					
+	// calc en draw balls at correct position
+	for (let i = 0; i < balls.length; i++) {
+		// if touch ground stop calc and set y pos to on top of ground 
+		if (balls[i].pos.y + balls[i].r/2 > 1) {
+			// balls[i].shouldCalc = false;
+			balls[i].speed.y *= -1;
+			balls[i].speed.y *= 0.8;
+			balls[i].pos.y = 1 - balls[i].r/2;
+		}
+		balls[i].calc(deltaTime);
+		balls[i].draw();
+	}
+}
+
+function windowResized() {
+	resizeCanvas(window.innerWidth, window.innerWidth / 16 * 9);
+	
+	balls = [];
+}
+
+// re position balls
+function mouseClicked() {
+	
+	// only work is mouse inside canvas
+	if (mouseX >= 0 && mouseY >= 0 && mouseX / width <= 1 && mouseY / height <= 1) {} else
+		return;
+	
+	balls = [];
+	
+	for (let i = 0; i < ballCount; i++) {
+		let m =  i * 0.05 + 0.1;
+		balls.push(new Ball(Vector(i/ballCount + 1/(ballCount*2), 0.21), m));
+		
+		balls[i].pos.y = 0.26 - balls[i].r/2;
+	}
+}
+// ball class
+function Ball(pos, mass) {
+	this.pos = pos;
+	this.mass = mass;
+	this.r = Math.sqrt(this.mass / Math.PI)/2;				
+	this.shouldCalc = true;
+	
+	this.speed = Vector(0, 0.00001);
+	
+	this.calc = (t) => {
+		if (!this.shouldCalc) { return; }
+		
+		this.speed.y += 0.00003;
+		let speed = this.speed.y * t;
+		
+		this.pos.x += this.speed.x;
+		this.pos.y += speed;
+	}
+	this.draw = () => {					
+		
+		let r = this.r * height;
+		let x = this.pos.x * width;
+		let y = this.pos.y * height;
+		
+		fill(0, 144, 189);
+		ellipse(x, y, r, r);
+		fill(0, 134, 179);
+		ellipse(x, y, r*0.9, r*0.9);
+		
+		fill(0);
+		noStroke();
+		textSize(16);
+		let str = Math.floor(this.mass * 100) / 100 * 10 + "kg";
+		text(str, x - textWidth(str)/2, y - r * 0.6);
+	}
+}
+function Vector(x = 0, y = 0) {
+	return {"x":x, "y":y};
+}
+</script>
+</body>
+</html>
