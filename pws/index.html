@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"> 
+<script src="p5/p5.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+<meta name="robots" content="noimageindex">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700" rel="stylesheet">
+<link rel="shortcut icon" href="assets/atom.png">
+<title>Today you learned - BTW</title>
+</head>
+<body>
+<!--<div id="canvas-container"></div>-->
+<div id="body">
+	<div class="header-title">Heavier objects fall faster than light ones</div>
+	<div class="space-m"></div>
+	<div class="p">As you may think, an object that let's say weighs roughly 2 times more than another object will fall faster. However that is not the case. Objects with a same shape (let's say a ball) but a different mass, will fall at the same speed, and will hit the ground at the same time (if dropped from the same height, ofcourse). However, you may say, why is it that a waaaay heavier object falls just as fast as a lighter one. Isn't there more gravity pulling the object? Well that's true, but the heavier object does have a higher inertia, and inertia is how much force is needed for an object to begin to move or accelerate, because the heavier object has a higher inertia, the force on the object will make it accelerate as fast as a lighter object.</div>
+	<div class="space-s"></div>
+	<iframe class="demo" src="js/air_1.html"></iframe>
+	<div class="space-m"></div>
+	<div class="formula-center">\[ F = m \cdot a \]</div>
+	<div class="space-s"></div>
+	<div class="formula-center">\[ F_z = m \cdot g \]</div>
+	<div class="space-s"></div>
+	<div class="formula-center">\[ a = \dfrac{F}{m} = \dfrac{F_z}{m} = \dfrac{m \cdot g}{m} = g\]</div>
+	<div class="space-m"></div>
+	<div class="p">The formula states, that no matter the mass of an object, the acceleration of that object will always be the same as 'g' which is roughly 9.81 m/s^2 around the world. This differs on other planets however, and these different gravitational acceleration can be found in BiNaS 31. </div>
+	<div class="space-s"></div>
+	<div class="p">However, there are some cases where an object with a bigger mass doesn't fall as fast as a lighter one. For example let's take a Styrofoam board that weighs 20 grams, and a paper ball that weighs 2 grams. The board is 10 times more heavy than the ball. But if you drop the board horizontally it will fall slower than the ball. But why? Why does it do that? Well, that is because air-resistance. Because the board has a bigger surface, there will be more air flowing onto it. The difference between the force of gravity and the air resistance is with a horizontal Styrofoam board very small in comparison with the ball, this will make the board fall slower than the ball. But if you let the board fall vertically you decrease the surface, which will make sure that there will be way less air-resistance which will make it fall with the same speed as the ball. </div>
+	<div class="space-m"></div>
+	<div class="sub-title">BiNaS 31</div>
+	<img class="binas" src="binas/31.png">
+</div>
+<script>
+var iframesList = document.getElementsByTagName('iframe');
+
+for (var i = 0; i < iframesList.length; i++) {
+	iFrame = iframesList[i];
+	iFrame.width = iFrame.contentWindow.document.body.scrollWidth;
+    iFrame.height = iFrame.contentWindow.document.body.scrollWidth/16*9;
+}
+</script>
+</body>
+</html>
+<!--
+MAIN PAGE TITLE  	<div class="header-title">___TOP_OF_PAGE_TITLE___</div>
+DEMO              	<iframe class="demo" src="___SKETCH_FILE_PATH___"></iframe>
+PARAGRAPH         	<div class="p">___PARAGRAPH___</div>
+SUB TITLE         	<div class="sub-title">___SUB_TITLE___</div>
+LARGE FORMULA     	<div class="formula-center">___FORMULA_SYNTAX___</div>
+LARGE SPACE		 	<div class="space-l"></div>
+MEDIUM SPACE		<div class="space-m"></div>
+SMALL SPACE			<div class="space-s"></div>
+BINAS PAGE			<img src="binas/___PAGE_NUMBER___.png">

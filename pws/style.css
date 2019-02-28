@@ -1,0 +1,63 @@
+/*
+
+FONT = 'Roboto Slab'
+WEIGHTS = 100, 300, 400, 700
+
+*/
+
+body {
+	margin: 0;
+	background-color: #f1f1f1;
+	font-family: 'Roboto Slab', sans-serif;
+}
+* {
+	outline: none;
+}
+#body {
+	background-color: rgba(0, 0, 0, 0.0);
+	background-color: #ffffff;
+	width: calc(100% - 64px);
+	position: relative;
+	max-width: calc(900px - 64px);
+	margin: auto;
+	min-height: calc(100vh - 64px);
+	padding: 32px;
+	box-shadow: 0px 0px 32px 16px rgba(0, 0, 0, 0.3);
+}
+
+/*---CSS for component---*/
+
+.header-title {
+	font-size: 32px;
+	text-transform: uppercase;
+	font-weight: 700;
+	/* color: rgb(0, 134, 179); */
+}
+.demo {
+	/* background-color: #f1f1f1; */
+	box-shadow: 8px 8px 8px 0px rgba(0, 0, 0, 0.3);
+	border: none;
+	border-top: 1px solid #f1f1f1;
+	border-left: 1px solid #f1f1f1;
+	width: 100%;
+	display: block;
+}
+.sub-title {
+	text-align: left;
+	font-weight: 400;
+	font-size: 18px;
+	text-transform: uppercase;
+}
+.formula-center {
+	font-size: 24px;
+	text-align: left;
+}
+.p {
+	font-weight: 300;
+}
+.binas {
+	width: 100%;
+}
+.space-l { margin: 128px 0px; }
+.space-m { margin: 64px 0px; }
+.space-s { margin: 32px 0px; }
