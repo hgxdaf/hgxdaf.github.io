@@ -1,0 +1,128 @@
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="theme-color" content="#000000"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="margin:0px;">
+<script>
+// init
+var balls;
+var prevTime;
+
+function setup() {
+	createCanvas(window.innerWidth, window.innerWidth / 16 * 9);
+	
+	// setup
+	balls = [];
+	prevTime = 0;
+	
+	for (let i = 0; i < 10; i++) {
+		let m =  i * 5000 + 5000;
+		balls.push(new Ball(Vector(width/10 * i + width/10/2, 0), m));
+		balls[i].shouldCalc = false;
+		
+		balls[i].pos.y = height*0.21 - balls[i].r/2;
+	}
+}
+
+function draw() {
+	// draw
+	let deltaTime = millis() - prevTime;
+	prevTime = millis();
+	background(241);
+	stroke(200);
+	strokeWeight(1);
+	line(0, height*0.21, width, height*0.21);
+
+	noStroke();
+	// button sign
+	let str = "Press mouse button to drop balls";
+	text(str, width/2 - textWidth(str)/2, height*0.25);
+					
+	// calc en draw balls at correct position
+	for (let i = 0; i < balls.length; i++) {
+		// if touch ground stop calc and set y pos to on top of ground 
+		if (balls[i].pos.y + balls[i].r/2 > height - 40) {
+			// balls[i].shouldCalc = false;
+			balls[i].speed.y *= -1;
+			balls[i].speed.y *= 0.8;
+			balls[i].pos.y = height - 40 - balls[i].r/2;
+		}
+		balls[i].calc(deltaTime);
+		balls[i].draw();
+	}
+	// draw ground
+	fill(64);
+	noStroke();
+	rect(0, height-40, width, 40);
+}
+
+function windowResized() {
+	resizeCanvas(window.innerWidth, window.innerWidth / 16 * 9);
+	
+	balls = [];
+	
+	for (let i = 0; i < 10; i++) {
+		let m =  i * 5000 + 5000;
+		balls.push(new Ball(Vector(width/10 * i + width/10/2, 0), m));
+		balls[i].shouldCalc = false;
+		
+		balls[i].pos.y = height*0.21 - balls[i].r/2;
+	}
+}
+
+// re position balls
+function mouseClicked() {
+	
+	// only work is mouse inside canvas
+	if (mouseX >= 0 && mouseY >= 0 && mouseX / width <= 1 && mouseY / height <= 1) {} else
+		return;
+	
+	
+	balls = [];
+	
+	for (let i = 0; i < 10; i++) {
+		let m =  i * 5000 + 5000;
+		balls.push(new Ball(Vector(width/10 * i + width/10/2, 0), m));
+		
+		balls[i].pos.y = height*0.21 - balls[i].r/2;
+	}
+}
+// ball class
+function Ball(pos, mass) {
+	this.pos = pos;
+	this.mass = mass;
+	this.r = Math.sqrt(this.mass / Math.PI)/2;				
+	this.shouldCalc = true;
+	
+	this.speed = Vector(0, 0.05);
+	
+	this.calc = (t) => {
+		if (!this.shouldCalc) { return; }
+		
+		this.speed.y += 0.01;
+		let speed = this.speed.y * t;
+		
+		this.pos.x += this.speed.x;
+		this.pos.y += speed;
+	}
+	this.draw = () => {					
+		
+		fill(255, 0, 0);
+		stroke(220, 0, 0);
+		strokeWeight(2);
+		ellipse(this.pos.x, this.pos.y, this.r, this.r);
+		
+		fill(0);
+		noStroke();
+		let str = this.mass / 5000 + " Kg";
+		text(str, this.pos.x - textWidth(str)/2, this.pos.y - this.r * 0.65);
+	}
+}
+function Vector(x = 0, y = 0) {
+	return {"x":x, "y":y};
+}
+</script>
+</body>
+</html>
